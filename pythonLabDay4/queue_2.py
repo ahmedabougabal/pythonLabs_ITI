@@ -12,6 +12,7 @@
 """
 
 from collections import deque
+import pickle
 class Queue:
   _instances={} # this is a class variable
   def __init__(self, name, size):
@@ -44,7 +45,15 @@ class Queue:
     return self.queue
   def display_queue_methods(self):
     return dir(self.queue)
+  ## bonus part (save and load)
+  def save(self):
+    with(open (self.name, "wb")) as file:
+      pickle.dump(self.queue, file)
+  def load(self):
+    with(open(self.name, "rb")) as file:
+      self.queue = pickle.load(file)
 
 
+print("#" * 50)
 class QueueOutOfRangeException(Exception):
   pass
