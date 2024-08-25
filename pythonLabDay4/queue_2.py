@@ -9,10 +9,16 @@
 	D. The queue class should have two class methods called (save, load)
 	   which saves all created queues instances to a file and load them when needed. (bonus)
 
+
 """
 
 from collections import deque
-import pickle
+import json
+
+import queue
+
+
+# import pickle (unsecure) - Deprecated
 class Queue:
   _instances={} # this is a class variable
   def __init__(self, name, size):
@@ -46,12 +52,22 @@ class Queue:
   def display_queue_methods(self):
     return dir(self.queue)
   ## bonus part (save and load)
-  def save(self):
-    with(open (self.name, "wb")) as file:
-      pickle.dump(self.queue, file)
-  def load(self):
-    with(open(self.name, "rb")) as file:
-      self.queue = pickle.load(file)
+  @classmethod
+  def save(cls):
+    data = {name:(list(queue.queue) , queue.size) for name, queue in cls._instances.items()}
+    with open("myfile.txt", "w") as file:
+      json.dump(data, file)
+      print("data saved")
+  @classmethod
+  def load(cls):
+    with open("myfile.txt", "r") as file:
+      data = json.load(file)
+      cls._instances={}
+      for name, (queue_data,size) in data.items():
+        queue_instance = cls(name, size)
+        queue_instance.queue = queue_data
+        cls._instances[name]=queue_instance
+      print("Queues loaded")
 
 
 print("#" * 50)
