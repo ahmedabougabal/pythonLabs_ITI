@@ -1,0 +1,10 @@
+1 - google how to read dictionaries from CSV files
+2 - load all teams into memory
+3 - write simulate_tournament function implementation, by repeatedly calling simulate_round function on the teams, 
+    until there's one team, return that one team
+4 - simulate N number of tournaments (10, 100, 1000, 10000 ... etc), counting how many tournaments did that team win
+
+   counts = {
+	"Argentina": 500,
+	"Brazil" : 400
+}
